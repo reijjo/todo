@@ -1,13 +1,56 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --col1dark: #1c282d;
+  --col2brown: #b68065;
+  --col3darkblue: #3074a1;
+  --col4lightblue: #48a5d2;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body * {
+  border: 1px solid green;
+}
+
+.main {
+  background-color: var(--col4lightblue);
+
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2vw;
+}
+
+.box {
+  min-height: 50vh;
+  width: 60vw;
+  flex-direction: column;
+  border: 2px solid var(--col1dark);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: lightblue;
+}
+
+.otsikko {
+  padding: 1vw;
+  text-align: center;
+  color: var(--col1dark);
+}
+
+.newTodo {
+  padding: 1vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jobs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2vw 1vw;
+  border-bottom: 1px solid var(--col2brown);
 }
