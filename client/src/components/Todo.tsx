@@ -1,25 +1,47 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { TODOs } from "../types";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addTodo,
+  setTodos,
+  updateTodo,
+  deleteTodo,
+} from "../reducers/todoReducers";
+import { RootState } from "../app/store";
 
 const ToDo = () => {
   const [newTodo, setNewTodo] = useState("");
-  const [todos, setTodos] = useState<TODOs[]>([]);
+  const todos = useSelector((state: RootState) => state.todo.todos);
+  const dispatch = useDispatch();
 
-  const addTodo = () => {
-    console.log("todo", newTodo);
+  const generateId = Number((Math.random() * 1000000).toFixed(0));
+
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      dispatch(setTodos(JSON.parse(storedTodos)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+    console.log("TODOS", todos);
+  }, [todos]);
+
+  const handleAddTodo = () => {
     const newJob: TODOs = {
-      id: todos.length + 1,
+      id: generateId,
       todo: newTodo,
       done: false,
     };
-    setTodos(todos.concat(newJob));
+    if (newJob.todo.length > 0) {
+      dispatch(addTodo(newJob));
+    }
     setNewTodo("");
   };
 
   const delTodo = (id: number) => {
-    const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodos);
-    console.log("del", id);
+    dispatch(deleteTodo(id));
   };
 
   const handleTodo = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,34 +49,37 @@ const ToDo = () => {
   };
 
   const handleCheckBox = (id: number) => {
-    const updatedTodos = todos.map((todo) =>
-      todo.id === id ? { ...todo, done: !todo.done } : todo
-    );
-    setTodos(updatedTodos);
-
-    console.log("checkbox id", id);
+    dispatch(updateTodo(id));
   };
-
-  // console.log("hep", jobDone);
-  console.log("TODOS", todos);
 
   return (
     <div className="main">
       <div className="box">
-        <div className="otsikko">whattodododo</div>
+        <div className="otsikko">
+          <h3 style={{ padding: "1vw", height: "100%" }}>Do It!</h3>
+        </div>
         <div className="newTodo">
-          <input type="text" onChange={handleTodo} value={newTodo} />
-          <button onClick={() => addTodo()}>add</button>
+          <input
+            type="text"
+            onChange={handleTodo}
+            value={newTodo}
+            placeholder="what to do...?"
+          />
+          <button onClick={() => handleAddTodo()}>add</button>
         </div>
         {todos
-          ? todos.map((todo) => (
+          ? todos.map((todo: TODOs) => (
               <div key={todo.id} className="jobs">
-                <input
-                  type="checkbox"
-                  onClick={() => handleCheckBox(todo.id)}
-                  // checked={todo.done}
-                />
+                <div className="checkbox">
+                  <input
+                    type="checkbox"
+                    onClick={() => handleCheckBox(todo.id)}
+                    defaultChecked={todo.done}
+                  />{" "}
+                  Check as done.
+                </div>
                 <div
+                  className="todo-text"
                   style={
                     todo.done
                       ? {
@@ -77,19 +102,6 @@ const ToDo = () => {
               </div>
             ))
           : null}
-        {/* <div className="jobs">
-          <input type="checkbox" onClick={() => handleCheckBox(id)} />
-          <div
-            style={
-              jobDone ? { textDecoration: "line-through", color: "grey" } : {}
-            }
-          >
-            todoooo
-          </div>
-          <button type="button" disabled={!jobDone}>
-            delete
-          </button>
-        </div> */}
       </div>
     </div>
   );

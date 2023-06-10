@@ -10,13 +10,8 @@ body {
   padding: 0;
 }
 
-body * {
-  border: 1px solid green;
-}
-
 .main {
   background-color: var(--col4lightblue);
-
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -35,16 +30,30 @@ body * {
 }
 
 .otsikko {
-  padding: 1vw;
   text-align: center;
   color: var(--col1dark);
+  border-bottom: 2px solid var(--col1dark);
+  font-size: larger;
 }
 
 .newTodo {
   padding: 1vw;
   display: flex;
+  /* flex-wrap: wrap; */
   align-items: center;
   justify-content: center;
+  border-bottom: 2px solid var(--col1dark);
+}
+
+.newTodo input {
+  flex-grow: 1;
+  padding: 0.5vh 0.2vw;
+  margin-right: 1vw;
+}
+
+.newTodo button {
+  display: block;
+  padding: 0.5vh 1vw;
 }
 
 .jobs {
@@ -53,4 +62,60 @@ body * {
   justify-content: space-between;
   padding: 2vw 1vw;
   border-bottom: 1px solid var(--col2brown);
+  flex-shrink: 1;
+
+  /* white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; */
+}
+
+.checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  white-space: nowrap;
+  margin-right: 1vw;
+}
+
+.todo-text {
+  flex-grow: 1;
+  word-wrap: break-word;
+  max-width: 50%;
+}
+
+.jobs > button {
+  display: block;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+@media (max-width: 768px) {
+  .newTodo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .newTodo input {
+    flex-grow: 1;
+    padding: 0.5vh 0.2vw;
+  }
+
+  .jobs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .checkbox {
+    margin-bottom: 1vh;
+  }
+
+  .jobs button {
+    margin-top: 1vh;
+    align-self: center;
+  }
+}
+
+@media (min-width: 1200px) {
+  .box {
+    width: 50vw;
+  }
 }
