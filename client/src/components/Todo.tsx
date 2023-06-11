@@ -64,8 +64,15 @@ const ToDo = () => {
             onChange={handleTodo}
             value={newTodo}
             placeholder="what to do...?"
+            name="whattodo"
           />
-          <button onClick={() => handleAddTodo()}>add</button>
+          <button
+            className="todo-button"
+            data-testid="todo-button"
+            onClick={() => handleAddTodo()}
+          >
+            add
+          </button>
         </div>
         {todos
           ? todos.map((todo: TODOs) => (
@@ -75,6 +82,8 @@ const ToDo = () => {
                     type="checkbox"
                     onClick={() => handleCheckBox(todo.id)}
                     defaultChecked={todo.done}
+                    name="done?"
+                    data-testid="done?"
                   />{" "}
                   Check as done.
                 </div>
