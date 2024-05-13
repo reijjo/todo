@@ -1,7 +1,9 @@
+import "./FooterNav.css";
+
 const Navbar = () => {
   return (
     <nav>
-      <div>hii</div>
+      <h3>Oon nav</h3>
     </nav>
   );
 };

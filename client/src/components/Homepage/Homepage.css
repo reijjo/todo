@@ -1,0 +1,7 @@
+.wrapper-home {
+  width: min(100%, 1366px);
+  height: 100%;
+
+  display: grid;
+  border: 1px solid black;
+}
