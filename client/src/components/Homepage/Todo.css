@@ -1,0 +1,56 @@
+.task {
+  display: flex;
+  flex-direction: column;
+
+  padding: 8px 16px;
+  margin: 8px 0;
+
+  width: 100%;
+
+  border-bottom: 1px solid var(--ACCENT);
+
+  &:last-child {
+    border: none;
+    margin-bottom: 0;
+  }
+}
+
+.what-todo {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+
+  padding: 8px 16px;
+
+  & input {
+    margin-right: 16px;
+    /* display: none; */
+    transform: scale(1.5);
+  }
+}
+
+.todo-header {
+  width: 100%;
+
+  & div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & h2 {
+      margin-right: 8px;
+    }
+    & p {
+      margin-left: 0;
+    }
+  }
+}
+
+.todo-done {
+  text-decoration: line-through;
+  color: var(--ACCENT);
+}
+
+.display-none {
+  display: none;
+}

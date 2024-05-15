@@ -1,11 +1,38 @@
+:root {
+  --PRIMARY: rgb(2, 37, 54);
+  --PRIMARY-LIGHT: rgb(6, 104, 153);
+  --PRIMARY-EXTRALIGHT: hsl(200, 92%, 91%);
+  --PRIMARY-BG: hsl(200, 93%, 97%);
+  --ACCENT: rgb(66, 165, 144);
+  --EKA: #145207;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
+body {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Cardo", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
 main {
-  background-color: burlywood;
+  background-color: var(--PRIMARY-BG);
+  color: black;
 
   min-height: calc(100dvh - 16dvh);
   height: auto;
@@ -14,3 +41,23 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Fonts */
+.cardo-regular {
+  font-family: "Cardo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.josefin-sans {
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+/* Fonts End */

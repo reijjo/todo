@@ -1,0 +1,47 @@
+.btn {
+  padding: 4px 8px;
+  border: 1px solid var(--PRIMARY-LIGHT);
+
+  background-color: var(--PRIMARY-LIGHT);
+  color: white;
+
+  font-family: "Cardo", serif;
+  font-weight: 800;
+  font-style: normal;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: hsl(200, 93%, 41%);
+    cursor: pointer;
+  }
+}
+
+.btn-del {
+  margin: 8px 0;
+  width: max-content;
+
+  background-color: #ffcccc;
+  color: black;
+  border: 1px solid var(--PRIMARY);
+
+  &:hover {
+    background-color: hsl(0, 100%, 85%);
+  }
+}
+
+.btn-big {
+  padding: 8px 16px;
+
+  border: 1px solid var(--PRIMARY-LIGHT);
+  border-radius: 4px;
+
+  background-color: var(--PRIMARY-LIGHT);
+  color: white;
+
+  &:hover {
+    background-color: hsl(200, 93%, 41%);
+  }
+}
