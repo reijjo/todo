@@ -3,6 +3,7 @@ import MyButton from "../common.tsx/MyButton";
 import "./Modal.css";
 import TextInput from "../common.tsx/TextInput";
 import { ToDo } from "../../utils/types";
+import todoApi from "../../api/todoApi";
 
 interface ModalProps {
   setModalOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -23,8 +24,19 @@ const Modal = ({ setModalOpen }: ModalProps) => {
     }));
   };
 
-  const addToDo = (event: SyntheticEvent) => {
+  const addToDo = async (event: SyntheticEvent) => {
     event.preventDefault();
+
+    const newTodo = {
+      header: todo.header,
+      todo: todo.todo,
+    };
+
+    const added = await todoApi.addNewTodo(newTodo);
+
+    if (added) {
+      setModalOpen(false);
+    }
 
     console.log("todo", todo);
   };

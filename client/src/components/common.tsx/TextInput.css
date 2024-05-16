@@ -6,6 +6,10 @@
 
   & label {
     margin: 4px 0;
+
+    & > div {
+      overflow: hidden;
+    }
   }
 
   & input {
