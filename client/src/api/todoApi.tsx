@@ -4,7 +4,7 @@ import api from "./axiosConfig";
 const baseUrl = `/todos`;
 
 const getAllTodos = async () => {
-  const res = await api.get<ToDo[]>(baseUrl);
+  const res = await api.get(baseUrl);
   return res.data;
 };
 

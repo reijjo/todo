@@ -8,7 +8,7 @@ import { ToDo } from "../../utils/types";
 
 const Homepage = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [todos, setTodos] = useState<ToDo[]>([]);
+  const [todos, setTodos] = useState<{ _id: string; todos: ToDo[] }[]>([]);
 
   console.log("MODAL OPEN>?", modalOpen);
 
@@ -20,19 +20,12 @@ const Homepage = () => {
     };
 
     getTodos();
-  }, []);
+  }, [modalOpen]);
 
-  // Sort and group todos by header
-  const sortedTodos = todos.sort((a, b) =>
-    String(a.header).localeCompare(String(b.header))
+  console.log(
+    "Group IDs",
+    todos.map((group) => group._id)
   );
-  const groupedTodos: { [key: string]: ToDo[] } = {};
-  sortedTodos.forEach((todo) => {
-    if (!groupedTodos[String(todo.header)]) {
-      groupedTodos[String(todo.header)] = [];
-    }
-    groupedTodos[String(todo.header)].push(todo);
-  });
   console.log("todos", todos);
 
   // Return
@@ -48,28 +41,19 @@ const Homepage = () => {
           type="button"
         />
       </div>
-      <section className="todo">
-        {/* {Object.entries(groupedTodos).map(([header, todos]) => (
-          <div key={header}>
-            <h2>{header}</h2>
+
+      {todos.map((group) => (
+        <section className="todo" key={group._id}>
+          <div>
+            <h2>{group._id || ""}</h2>
             <div className="all-tasks">
-              {todos.map((todo) => (
-                <Todo key={todo.id} todoText={todo.todo} />
+              {group.todos.map((todo) => (
+                <Todo key={todo._id} todoText={todo.todo} />
               ))}
             </div>
           </div>
-        ))} */}
-        <h2>Header</h2>
-        <div className="all-tasks">
-          <Todo
-            todoText="Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Dignissimos quos debitis quam magni excepturi ullam id alias sit
-                laudantium?"
-          />
-
-          <Todo todoText="osta makkaraa" />
-        </div>
-      </section>
+        </section>
+      ))}
     </div>
   );
 };
