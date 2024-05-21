@@ -9,14 +9,26 @@ const getAllTodos = async () => {
 };
 
 const addNewTodo = async (todo: ToDo) => {
-  console.log("TODO", todo);
   const res = await api.post<ToDo>(baseUrl, todo);
+  return res.data;
+};
+
+const updateTodo = async (id: string) => {
+  // const res = await api.patch(`${baseUrl}/${id}`);
+  const res = await api.put(`${baseUrl}/${id}`);
+  return res.data;
+};
+
+const deleteTodo = async (id: string) => {
+  const res = await api.delete(`${baseUrl}/${id}`);
   return res.data;
 };
 
 const todoApi = {
   getAllTodos,
   addNewTodo,
+  updateTodo,
+  deleteTodo,
 };
 
 export default todoApi;

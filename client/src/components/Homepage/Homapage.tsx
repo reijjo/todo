@@ -22,6 +22,20 @@ const Homepage = () => {
     getTodos();
   }, [modalOpen]);
 
+  // Mark ToDo as done
+  const updateTodoStatus = async (id: string) => {
+    const updateStatus = await todoApi.updateTodo(id);
+    console.log("updated", updateStatus);
+  };
+
+  // Remove ToDo
+  const removeTodo = async (id: string) => {
+    const deletedTodo = await todoApi.deleteTodo(id);
+    console.log("deletedTOdo", deletedTodo);
+    const updatedTodoList = await todoApi.getAllTodos();
+    setTodos(updatedTodoList);
+  };
+
   console.log(
     "Group IDs",
     todos.map((group) => group._id)
@@ -48,7 +62,13 @@ const Homepage = () => {
             <h2>{group._id || ""}</h2>
             <div className="all-tasks">
               {group.todos.map((todo) => (
-                <Todo key={todo._id} todoText={todo.todo} />
+                <Todo
+                  key={todo._id}
+                  todoText={todo.todo}
+                  id={String(todo._id)}
+                  removeTodo={removeTodo}
+                  updateTodo={updateTodoStatus}
+                />
               ))}
             </div>
           </div>

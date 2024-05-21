@@ -12,6 +12,10 @@ const todoSchema = new mongoose.Schema({
     minLength: [2, "Min 2 characters thanks."],
     maxLength: [160, "Max 160 characters on todo."],
   },
+  done: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 todoSchema.set("toJSON", {

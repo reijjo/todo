@@ -4,13 +4,19 @@ import "./Todo.css";
 
 interface TodoProps {
   todoText: string;
+  id: string;
+  removeTodo: (id: string) => Promise<void>;
+  updateTodo: (id: string) => Promise<void>;
 }
 
-const Todo = ({ todoText }: TodoProps) => {
+const Todo = ({ todoText, id, removeTodo, updateTodo }: TodoProps) => {
   const [done, setDone] = useState(false);
 
-  const handleCheck = () => {
+  const handleCheck = async (id: string) => {
     setDone(!done);
+    const updated = await updateTodo(id);
+    console.log("TODO id", id);
+    console.log("UPDATED", updated);
   };
 
   return (
@@ -20,9 +26,9 @@ const Todo = ({ todoText }: TodoProps) => {
           type="checkbox"
           name="task-check"
           checked={done}
-          onChange={handleCheck}
+          onChange={() => handleCheck(id)}
         />
-        <p className={done ? "todo-done" : ""} onClick={() => setDone(!done)}>
+        <p className={done ? "todo-done" : ""} onClick={() => handleCheck(id)}>
           {todoText}
         </p>
       </span>
@@ -30,6 +36,7 @@ const Todo = ({ todoText }: TodoProps) => {
         buttonText="Delete"
         className={`btn btn-del ${!done && "display-none"}`}
         type="button"
+        onClick={() => removeTodo(id)}
       />
     </div>
   );

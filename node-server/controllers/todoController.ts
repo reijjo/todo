@@ -52,3 +52,70 @@ export const addTodo = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Adding todo server problems." });
   }
 };
+
+// todos/:id
+// PUT
+// Update todo
+export const updateTodo = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const todo = await TodoModel.findById({ _id: id });
+
+    if (!todo) {
+      return res.status(404).json({ message: `No todo found with id: ${id}` });
+    }
+
+    // Field to update
+    const update = { done: !todo.done };
+
+    // Update
+    const updatedTodo = await TodoModel.findOneAndUpdate({ _id: id }, update, {
+      new: true,
+    });
+
+    console.log("updatedTodo", updatedTodo);
+    return res.status(200).json({ message: "Updated todo" });
+  } catch (error: unknown) {
+    console.log("Error updating todo with id", error);
+    return res
+      .status(500)
+      .json({ message: "Error updating todo with id", error });
+  }
+};
+
+// todos/:id
+// DELETE
+// Delete todo
+export const removeTodo = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    // Find todo with id
+    const todo = await TodoModel.findById({ _id: id });
+
+    if (!todo) {
+      return res.status(404).json({ message: `No todo found with id: ${id}` });
+    }
+
+    // Check that todo is done
+    if (todo && todo.done === false) {
+      return res
+        .status(401)
+        .json({ message: `Can't delete todo that isn't done.` });
+    }
+
+    // Delete todo
+    await TodoModel.deleteOne({ _id: id });
+
+    // Get updated todolist
+    // const updatedList = await TodoModel.find({});
+
+    return res.status(200).json({ message: `Removed ${todo.todo}.` });
+  } catch (error: unknown) {
+    console.log("Error deleting todo with id", error);
+    return res
+      .status(500)
+      .json({ message: "Error deleting todo with id", error });
+  }
+};
