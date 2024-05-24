@@ -7,16 +7,7 @@ import { TodoModel } from "../db/models/todoModel";
 // Get all todos
 export const getAllTodos = async (_req: Request, res: Response) => {
   try {
-    // const allTodos = await TodoModel.find({});
-    const allTodos = await TodoModel.aggregate([
-      { $sort: { header: 1 } }, // Sort Todos by header in ascending order
-      {
-        $group: {
-          _id: "$header", // Group Todos by header
-          todos: { $push: "$$ROOT" }, // Store grouped Todos in an array
-        },
-      },
-    ]);
+    const allTodos = await TodoModel.find({});
 
     res.status(200).json(allTodos);
   } catch (error: unknown) {
@@ -43,7 +34,6 @@ export const addTodo = async (req: Request, res: Response) => {
       todo,
     };
 
-    // const addedTodo = await TodoModel.create(newTodo);
     await TodoModel.create(newTodo);
 
     return res.status(201).json({ message: `New todo '${todo} added.` });

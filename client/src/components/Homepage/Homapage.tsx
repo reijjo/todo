@@ -8,9 +8,7 @@ import { ToDo } from "../../utils/types";
 
 const Homepage = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [todos, setTodos] = useState<{ _id: string; todos: ToDo[] }[]>([]);
-
-  console.log("MODAL OPEN>?", modalOpen);
+  const [todos, setTodos] = useState<ToDo[]>([]);
 
   // Get all ToDos
   useEffect(() => {
@@ -36,10 +34,19 @@ const Homepage = () => {
     setTodos(updatedTodoList);
   };
 
-  console.log(
-    "Group IDs",
-    todos.map((group) => group._id)
-  );
+  // Group todos by header
+  const groupedTodos = todos.reduce((groups, todo) => {
+    const header = todo.header || "";
+    if (!groups[header]) {
+      groups[header] = [];
+    }
+    groups[header].push(todo);
+    return groups;
+  }, {} as Record<string, ToDo[]>);
+
+  // Sort headers
+  const sortedHeaders = Object.keys(groupedTodos).sort();
+
   console.log("todos", todos);
 
   // Return
@@ -56,24 +63,28 @@ const Homepage = () => {
         />
       </div>
 
-      {todos.map((group) => (
-        <section className="todo" key={group._id}>
-          <div>
-            <h2>{group._id || ""}</h2>
-            <div className="all-tasks">
-              {group.todos.map((todo) => (
-                <Todo
-                  key={todo._id}
-                  todoText={todo.todo}
-                  id={String(todo._id)}
-                  removeTodo={removeTodo}
-                  updateTodo={updateTodoStatus}
-                />
-              ))}
+      {todos && todos.length ? (
+        sortedHeaders.map((header) => (
+          <section className="todo" key={header}>
+            <div>
+              <h2>{header}</h2>
+              <div className="all-tasks">
+                {groupedTodos[header].map((todo) => (
+                  <Todo
+                    key={todo.id}
+                    todoText={todo.todo}
+                    id={String(todo.id)}
+                    removeTodo={removeTodo}
+                    updateTodo={updateTodoStatus}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
-      ))}
+          </section>
+        ))
+      ) : (
+        <div>loading...</div>
+      )}
     </div>
   );
 };

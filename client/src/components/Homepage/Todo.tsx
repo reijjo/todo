@@ -14,9 +14,7 @@ const Todo = ({ todoText, id, removeTodo, updateTodo }: TodoProps) => {
 
   const handleCheck = async (id: string) => {
     setDone(!done);
-    const updated = await updateTodo(id);
-    console.log("TODO id", id);
-    console.log("UPDATED", updated);
+    await updateTodo(id);
   };
 
   return (
