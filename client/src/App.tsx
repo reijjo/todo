@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from "./components/common.tsx/Navbar";
-import Layout from "./components/common.tsx/Layout";
+import Navbar from "./components/common/Navbar";
+import Layout from "./components/common/Layout";
 import Homepage from "./components/Homepage/Homapage";
-import Footer from "./components/common.tsx/Footer";
+import Footer from "./components/common/Footer";
 
 const App = () => {
   return (

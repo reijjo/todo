@@ -1,7 +1,7 @@
 import { ChangeEvent, Dispatch, SyntheticEvent, useState } from "react";
-import MyButton from "../common.tsx/MyButton";
+import MyButton from "../common/MyButton";
 import "./Modal.css";
-import TextInput from "../common.tsx/TextInput";
+import TextInput from "../common/TextInput";
 import { ToDo } from "../../utils/types";
 import todoApi from "../../api/todoApi";
 

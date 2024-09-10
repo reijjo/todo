@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MyButton from "../common.tsx/MyButton";
+import MyButton from "../common/MyButton";
 import Modal from "./Modal";
 import Todo from "./Todo";
 import "./Homepage.css";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import MyButton from "../common.tsx/MyButton";
+import MyButton from "../common/MyButton";
 import "./Todo.css";
 
 interface TodoProps {
